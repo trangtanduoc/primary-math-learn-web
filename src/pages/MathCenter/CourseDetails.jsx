@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getCourseById } from "../../services/courseService";
+import { getLessonsByCourse } from "../../services/lessonService";
+import LessonList from "../../components/student/LessonList";
 
 function CourseDetails() {
   const { id } = useParams();
   const [details, setDetails] = useState(null);
+  const [lessons, setLessons] = useState([]);
   const [loading, setLoading] = useState(true);
   const VND = new Intl.NumberFormat("vi-VN", {
     style: "currency",
@@ -13,9 +16,13 @@ function CourseDetails() {
 
   const fetchCourseData = async () => {
     try {
-      const courseData = await getCourseById(id);
+      const [courseData, lessonData] = await Promise.all([
+        getCourseById(id),
+        getLessonsByCourse(id),
+      ]);
       console.log(courseData.data);
       setDetails(courseData.data);
+      setLessons(lessonData.data);
     } catch (error) {
       console.error("Error fetching course details:", error);
     } finally {
@@ -103,7 +110,7 @@ function CourseDetails() {
           </div>
           <div style={{ margin: "1rem" }}>
             <h3>Course Lessons</h3>
-            <p>...</p>
+            <LessonList lessons={lessons} />
           </div>
         </div>
       )}
