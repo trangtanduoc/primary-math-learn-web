@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { saveAuth } from '../services/authService';
+
 
 export default function LoginPage() {
   const [isRegister, setIsRegister] = useState(false);
@@ -54,6 +56,8 @@ export default function LoginPage() {
         localStorage.setItem("token", token);
         localStorage.setItem("role", role);
 
+        saveAuth(response.data);
+        
         if (role === "Admin") {
           navigate("/admin");
         } else {
