@@ -3,6 +3,8 @@ import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import CoursesPage from './pages/CoursesPage';
 import AdminRoutes from './routes/AdminRoutes';
+import StudentRoutes from './routes/StudentRoutes';
+
 
 function App() {
   return (
@@ -18,6 +20,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/courses" element={<CoursesPage />} />
+        <Route path="/*" element={<StudentRoutes />} />
       </Routes>
 
       <AdminRoutes />
