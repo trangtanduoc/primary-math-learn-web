@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { saveAuth } from '../services/authService';
-
+import { saveAuth } from "../services/authenService";
 
 export default function LoginPage() {
   const [isRegister, setIsRegister] = useState(false);
@@ -47,19 +46,24 @@ export default function LoginPage() {
       }
     } else {
       try {
-        const response = await axios.post("https://localhost:7226/api/Auth/signin", {
-          email: formData.email,
-          password: formData.password,
-        });
+        const response = await axios.post(
+          "https://localhost:7226/api/Auth/signin",
+          {
+            email: formData.email,
+            password: formData.password,
+          }
+        );
 
         const { token, role } = response.data;
         localStorage.setItem("token", token);
         localStorage.setItem("role", role);
 
         saveAuth(response.data);
-        
+
         if (role === "Admin") {
           navigate("/admin");
+        } else if (role === "MathCenter") {
+          navigate("/mathcenter");
         } else {
           navigate("/");
         }
@@ -72,7 +76,9 @@ export default function LoginPage() {
 
   return (
     <div style={{ maxWidth: "500px", margin: "auto", padding: "2rem" }}>
-      <h2 style={{ textAlign: "center" }}>{isRegister ? "Đăng ký" : "Đăng nhập"}</h2>
+      <h2 style={{ textAlign: "center" }}>
+        {isRegister ? "Đăng ký" : "Đăng nhập"}
+      </h2>
       <form onSubmit={handleSubmit}>
         <input
           type="email"
