@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { saveAuth } from '../services/authService';
+import { saveAuth } from '../services/authenService';
 
 
 export default function LoginPage() {
