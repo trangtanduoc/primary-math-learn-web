@@ -55,7 +55,7 @@ export default function LoginPage() {
         localStorage.setItem("role", role);
 
         if (role === "Admin") {
-          navigate("/admin/dashboard");
+          navigate("/admin");
         } else {
           navigate("/");
         }
