@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import MathCenterList from '../components/MathCenterList';
+import MathCenterList from '../components/student/MathCenterList';
 import { getCenter } from '../services/mathcenterService';
 import { getAllCourses } from '../services/courseService';
 
