@@ -16,12 +16,6 @@ function MathCenter() {
       console.log(center.userId);
       const coursesRes = await getCourseOfCenter(center.userId);
       console.log(coursesRes.data);
-      //   const courses = coursesRes.data;
-
-      // Combine courses into their respective centers
-      //   const coursesOfCenter = courses.filter(
-      //     (course) => course.mathCenterId === center.id
-      //   );
       setCourses(coursesRes.data);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -36,20 +30,26 @@ function MathCenter() {
 
   return (
     <>
-      <h1 style={{ textAlign: "center" }}>Welcome</h1>
-      <div
-        key={center.id}
-        style={{
-          border: "1px solid #ccc",
-          padding: "1rem",
-          marginBottom: "1rem",
-          borderRadius: "8px",
-        }}
-      >
-        <h2>{center.name}</h2>
-        <p>{center.description}</p>
-        <CourseList courses={courses} />
-      </div>
+      {loading ? (
+        <p>Loading...</p>
+      ) : (
+        <>
+          <h1 style={{ textAlign: "center" }}>Welcome, {center.centerName}</h1>
+          <div
+            key={center.id}
+            style={{
+              border: "1px solid #ccc",
+              padding: "0 1rem",
+              margin: "1rem",
+              borderRadius: "8px",
+            }}
+          >
+            <h2>{center.name}</h2>
+            <p>{center.description}</p>
+            <CourseList courses={courses} />
+          </div>
+        </>
+      )}
     </>
   );
 }
