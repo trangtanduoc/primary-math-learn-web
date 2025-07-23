@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { saveAuth } from '../services/authService';
+import { saveAuth } from '../services/authenService';
 
 
 export default function LoginPage() {
@@ -57,10 +57,12 @@ export default function LoginPage() {
         localStorage.setItem("role", role);
 
         saveAuth(response.data);
-        
+
         if (role === "Admin") {
           navigate("/admin");
-        } else {
+        } if (role === "Student") {
+          navigate("/student");
+        }else {
           navigate("/");
         }
       } catch (error) {
